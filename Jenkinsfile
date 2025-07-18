@@ -10,7 +10,7 @@ pipeline {
 
         stage('Deploy to EC2') {
             steps {
-                sshagent(['ubuntu']) {
+                sshagent(['flask-ec2-key']) {
                     sh '''
                     ssh -o StrictHostKeyChecking=no ubuntu@52.23.252.187 << EOF
                       cd ~
