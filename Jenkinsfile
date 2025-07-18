@@ -25,10 +25,12 @@ pipeline {
                       pip install --upgrade pip
                       pip install --break-system-packages -r requirements.txt
 
-                      PID=$(lsof -t -i:5000) && [ -n "$PID" ] && kill -9 $PID || echo "No process on 5000"
+                      # Kill process using port 5000
+                      fuser -k 5000/tcp || echo "Port 5000 already free"
 
+                      # Start Gunicorn in background
                       nohup venv/bin/gunicorn --bind 0.0.0.0:5000 app:app &
-                      echo "✅ Flask App Deployed"
+                      echo "Flask App Deployed on EC2"
                     EOF
                     '''
                 }
