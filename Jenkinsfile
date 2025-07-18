@@ -4,15 +4,15 @@ pipeline {
     stages {
         stage('Pull Code') {
             steps {
-                git branch: 'main', url: 'https://github.com/your-username/your-flask-repo.git'
+                git branch: 'main', url: 'https://github.com/panthangiEshwary/flask-jenkins-cicd.git'
             }
         }
 
         stage('Deploy to EC2') {
             steps {
-                sshagent(['your-ssh-credential-id']) {
+                sshagent(['ubuntu']) {
                     sh '''
-                    ssh -o StrictHostKeyChecking=no ubuntu@<EC2-PUBLIC-IP> << EOF
+                    ssh -o StrictHostKeyChecking=no ubuntu@52.23.252.187 << EOF
                       cd ~/flask-app
                       git pull
                       source venv/bin/activate
